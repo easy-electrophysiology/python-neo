@@ -8,7 +8,7 @@ install_requires = ['packaging',
                     'numpy>=1.18.5',
                     'quantities>=0.12.1']
 extras_require = {
-    'igorproio': ['igor'],
+    'igorproio': ['igor2'],
     'kwikio': ['klusta'],
     'neomatlabio': ['scipy>=1.0.0'],
     'nixio': ['nixio>=1.5.0'],

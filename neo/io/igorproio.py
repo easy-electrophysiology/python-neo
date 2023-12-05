@@ -76,8 +76,8 @@ class IgorIO(BaseIO):
         return block
 
     def read_segment(self, lazy=False):
-        import igor.packed as pxp
-        from igor.record.wave import WaveRecord
+        import igor2.packed as pxp
+        from igor2.record.wave import WaveRecord
 
         assert not lazy, 'This IO does not support lazy mode'
         segment = Segment(file_origin=str(self.filename))
@@ -100,8 +100,8 @@ class IgorIO(BaseIO):
         return segment
 
     def read_analogsignal(self, path=None, lazy=False):
-        import igor.binarywave as bw
-        import igor.packed as pxp
+        import igor2.binarywave as bw
+        import igor2.packed as pxp
 
         assert not lazy, 'This IO does not support lazy mode'
 
