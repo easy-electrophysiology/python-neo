@@ -581,7 +581,10 @@ def parse_axon_soup(filename):
             ss = header["uFileStartTimeMS"] / 1000.0 - hh * 3600 - mm * 60
             ms = int(np.mod(ss, 1) * 1e6)
             ss = int(ss)
-        header["rec_datetime"] = datetime.datetime(YY, MM, DD, hh, mm, ss, ms)
+        try:
+            header["rec_datetime"] = datetime.datetime(YY, MM, DD, hh, mm, ss, ms)
+        except:
+            header["rec_datetime"] = "Datetime was not in the correct format."
 
     return header
 
