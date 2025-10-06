@@ -339,10 +339,15 @@ class AxonRawIO(BaseRawIO):
                         i_begin = i_last
                         i_end = i_last + epoch["lEpochInitDuration"] + epoch["lEpochDurationInc"] * epiNum
                         dif = i_end - i_begin
-                        sig[i_begin:i_end] = np.ones(dif) * (
-                            epoch["fEpochInitLevel"] + epoch["fEpochLevelInc"] * epiNum
-                        )
+
+                        if epoch["nEpochType"] == 2:
+                            sig[i_begin:i_end] = np.linspace(0, epoch["fEpochInitLevel"] + epoch["fEpochLevelInc"] * epiNum, dif)
+                        else:
+                            sig[i_begin:i_end] = np.ones(dif) * (
+                                epoch["fEpochInitLevel"] + epoch["fEpochLevelInc"] * epiNum
+                            )
                         i_last += epoch["lEpochInitDuration"] + epoch["lEpochDurationInc"] * epiNum
+
                 signals.append(sig)
             sigs_by_segments.append(signals)
 
