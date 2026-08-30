@@ -838,9 +838,7 @@ class EpochProxy(BaseEpochProxy):
             start_times = self._time_intervals.start_time[self._index]
             stop_times = self._time_intervals.stop_time[self._index]
             durations = stop_times - start_times
-            # We had cases where labels.size != times.size. As we do not
-            # use the labels, always set them None here.
-            labels = None # self._time_intervals.tags[self._index]
+            labels = self._time_intervals.tags[self._index]
 
         return Epoch(times=start_times * pq.s, durations=durations * pq.s, labels=labels, name=self.name)
 
