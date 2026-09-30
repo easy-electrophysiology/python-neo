@@ -170,6 +170,14 @@ def load_csv_file(
     except ValueError as e:
         raise ValueError(f"{e} Check that `has_header` and `has_index` are set correctly.")
 
+    if not np.all(np.isfinite(data)):
+        raise ValueError(
+            "Data contains NaN, missing or infinite values and so cannot be loaded."
+        )
+
+    if data.shape[0] < 2:
+        raise ValueError("Data must contain at least two samples per record.")
+
     num_cols = data.shape[1]
     num_samples = data.shape[0]
     num_recs, remainder = np.divmod(num_cols, num_datatypes)
@@ -223,6 +231,12 @@ def load_csv_file(
         results["time"] = first_rec_samples
         time_units = "s"
     else:
+        time_steps = np.diff(results["time"], axis=0)
+        if not np.all(time_steps > 0):
+            raise ValueError(
+                "Time must increase within each record. "
+                "Check that the correct time columns and datatype order are selected."
+            )
         sampling_step = results["time"][1][0] - results["time"][0][0]
         results["time"] = results["time"][0, :]
         time_units = ordered_units[ordered_datatypes.index("time")]
